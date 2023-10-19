@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
 import logo from "./logo.svg";
+import Playlist from "./containers/playlist/Playlist";
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App: FC = (): ReactElement => {
         >
           Learn React
         </a>
+        <Playlist></Playlist>
       </header>
     </div>
   );
