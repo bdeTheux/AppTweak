@@ -1,11 +1,12 @@
 import "./App.css";
 
 import React, { FC, ReactElement } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
 import logo from "./logo.svg";
 import Playlist from "./containers/playlist/Playlist";
+import PopUpButton from "./containers/playlist/PopUpButton";
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -29,7 +30,8 @@ const App: FC = (): ReactElement => {
         >
           Learn React
         </a>
-        <Playlist></Playlist>
+        <PopUpButton/>
+        <Playlist/>
       </header>
     </div>
   );

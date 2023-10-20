@@ -1,32 +1,60 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { configureStore, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { store } from "../../store/store";
 
+const initialState = {
+    playlists: [],
+}
 
-const token = store.getState().authentication.accessToken;
-const userId = store.getState().authentication.user?.userId;
+const playlistsSlice = createSlice({
+    name:"playlists",
+    initialState,
+    reducers: {
+      addPlaylist: (state, action) => {
+          const newPlaylist = {
+              name: action.payload,
+              description: action.payload
+          };
+          //state.push(newPlaylist);
+      }
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchPlaylists.fulfilled, (state, action) =>{
+            return action.payload;
+        })
+    },
+  })
 
-//Get all the playlist of current user
-export const getPlaylists = async () => {
+const token = 1;
+const userId=1;
+
+export const fetchPlaylists = createAsyncThunk('playlists/fetchPlaylists', async () =>{
+    const token = await store.getState().authentication.accessToken;
+    const userId = await store.getState().authentication.user?.userId;
+    console.log(userId + " TOKE " + token);
     
-    try {
-        
-        const request = await axios.get(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+    try{
+        const response = await axios.get(`https://api.spotify.com/v1/users/${userId}/playlists`, {
             headers: { Authorization: `Bearer ${token}` },
         });
+        console.log(response.data);
+        
+        return response.data;
+    }catch(error){
+        return null;
+    }
+})
 
-        console.log(request.data)
-        return request.data; 
-    } catch (error) {
-        console.log("Erreur", error);
+
+const addPlaylist = async () => {
+    try{
+        const request = await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`,{
+            headers: {Authorization: `Bearer ${token}`},
+            //body: {name + description}
+        })
+    }catch(error){
         return null;
     }
 }
 
-const playlistsSlice = createSlice({
-  name:"playlists",
-  initialState:[],
-  reducers: {
-    addPlaylist: () => {}
-  }
-})
+export default playlistsSlice.reducer;

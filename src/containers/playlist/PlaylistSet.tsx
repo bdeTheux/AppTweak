@@ -1,7 +1,7 @@
-import { getPlaylists } from "./slice";
+import { fetchPlaylists } from "./slice";
 
 const PlaylistSet = () => {
-    getPlaylists();
+    //fetch all playlist
     
     return (
         <div>
