@@ -1,20 +1,29 @@
 import { useSelector } from "react-redux";
 import { playlistsSelectors } from "./selectors";
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Space, Menu } from 'antd';
+import type { MenuProps } from 'antd';
+
+
 
 const PlaylistSet = () => {
 
     const playlists = useSelector(playlistsSelectors.getPlaylists);
 
-    const renderPlaylists = playlists.map(playlist =>(
-        <div key={playlist.id}>
-            <p>{playlist.name}</p>
-        </div>
-    ))
-
+    const items = playlists.map(item => ({
+        key: "" + item.id,
+        label: item.name
+      }));
+    
     return (
-        <div>
-            {renderPlaylists}
-        </div>
+        <Dropdown menu={{items}} trigger={['click']}>
+            <a onClick={(e) => e.preventDefault()}>
+            <Space>
+                Click me
+                <DownOutlined />
+            </Space>
+            </a>
+        </Dropdown>
     );
 
 }

@@ -2,7 +2,7 @@ import { configureStore, createAction, createAsyncThunk, createSlice } from "@re
 import axios from "axios";
 
 export interface Playlist {
-    id? : number;
+    id? : string;
     name?: string;
     description?: string;
   }
