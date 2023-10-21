@@ -1,15 +1,34 @@
-import { configureStore, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { store } from "../../store/store";
 
-const initialState = {
-    playlists: [],
+export interface Playlist {
+    id? : number;
+    name?: string;
+    description?: string;
+  }
+
+export interface ListPlaylists {
+    items : Playlist[];
 }
+export interface PlaylistState {
+    playlists: ListPlaylists;
+  }
+  
+const initialState: ListPlaylists = {
+    items: [],
+}
+
+//Create actions
+export const getPlaylists = createAction("playlists/getPlaylists");
+export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPlaylistsSuccess");
 
 const playlistsSlice = createSlice({
     name:"playlists",
     initialState,
     reducers: {
+      setPlaylists: (state, action) => {
+        state.items = action.payload;
+      },
       addPlaylist: (state, action) => {
           const newPlaylist = {
               name: action.payload,
@@ -19,34 +38,15 @@ const playlistsSlice = createSlice({
       }
     },
     extraReducers(builder) {
-        builder.addCase(fetchPlaylists.fulfilled, (state, action) =>{
-            return action.payload;
-        })
+        builder
+            .addCase(getPlaylistsSuccess, (state, action) => {
+                state.items = action.payload.playlists?.items;
+            })
     },
   })
 
-const token = 1;
-const userId=1;
 
-export const fetchPlaylists = createAsyncThunk('playlists/fetchPlaylists', async () =>{
-    const token = await store.getState().authentication.accessToken;
-    const userId = await store.getState().authentication.user?.userId;
-    console.log(userId + " TOKE " + token);
-    
-    try{
-        const response = await axios.get(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-            headers: { Authorization: `Bearer ${token}` },
-        });
-        console.log(response.data);
-        
-        return response.data;
-    }catch(error){
-        return null;
-    }
-})
-
-
-const addPlaylist = async () => {
+/*const addPlaylist = async () => {
     try{
         const request = await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`,{
             headers: {Authorization: `Bearer ${token}`},
@@ -55,6 +55,10 @@ const addPlaylist = async () => {
     }catch(error){
         return null;
     }
-}
+}*/
+
+export const { setPlaylists } = playlistsSlice.actions;
+
+export const  selectAllPlaylist  = (state: { playlists: any; }) => state.playlists;//playlistsSlice.actions;
 
 export default playlistsSlice.reducer;
