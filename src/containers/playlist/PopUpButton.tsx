@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CreatePlaylist from "./PopUpAddPlaylist";
 import PopUpAddPlaylist from "./PopUpAddPlaylist";
 import { isPopupOpen, openPopup } from "./popupSlice";
-import { store } from "../../store/store";
-
 
 const PopUpButton = () => {
 

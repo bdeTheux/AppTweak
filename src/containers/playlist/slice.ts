@@ -1,5 +1,4 @@
 import { configureStore, createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export interface Playlist {
     id? : string;
@@ -21,6 +20,11 @@ const initialState: ListPlaylists = {
 //Create actions
 export const getPlaylists = createAction("playlists/getPlaylists");
 export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPlaylistsSuccess");
+export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylistSuccess");
+export const addPlaylist = (values: any) => ({
+    type: "playlists/addPlaylistSuccess",
+    values: values,
+  });
 
 const playlistsSlice = createSlice({
     name:"playlists",
@@ -28,13 +32,6 @@ const playlistsSlice = createSlice({
     reducers: {
       setPlaylists: (state, action) => {
         state.items = action.payload;
-      },
-      addPlaylist: (state, action) => {
-          const newPlaylist = {
-              name: action.payload,
-              description: action.payload
-          };
-          //state.push(newPlaylist);
       }
     },
     extraReducers(builder) {
@@ -42,23 +39,20 @@ const playlistsSlice = createSlice({
             .addCase(getPlaylistsSuccess, (state, action) => {
                 state.items = action.payload.playlists?.items;
             })
+            .addCase(addPlaylistSuccess, (state, action: any) => {
+                console.log(action)
+                const newPlaylist: Playlist = {
+                    name: action.values.name,
+                    description: action.values.description,
+                    id: action.values.id
+                };
+                state.items = [...state.items, newPlaylist]
+            })      
     },
   })
 
-
-/*const addPlaylist = async () => {
-    try{
-        const request = await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`,{
-            headers: {Authorization: `Bearer ${token}`},
-            //body: {name + description}
-        })
-    }catch(error){
-        return null;
-    }
-}*/
-
 export const { setPlaylists } = playlistsSlice.actions;
 
-export const  selectAllPlaylist  = (state: { playlists: any; }) => state.playlists;//playlistsSlice.actions;
+export const  selectAllPlaylist  = (state: { playlists: any; }) => state.playlists;
 
 export default playlistsSlice.reducer;

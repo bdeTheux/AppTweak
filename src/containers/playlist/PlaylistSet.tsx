@@ -1,15 +1,12 @@
 import { useSelector } from "react-redux";
 import { playlistsSelectors } from "./selectors";
 import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space, Menu } from 'antd';
-import type { MenuProps } from 'antd';
-
-
+import { Dropdown, Space } from 'antd';
 
 const PlaylistSet = () => {
 
     const playlists = useSelector(playlistsSelectors.getPlaylists);
-
+    console.log("pla", playlists)
     const items = playlists.map(item => ({
         key: "" + item.id,
         label: item.name
