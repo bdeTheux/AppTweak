@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { call, put, select, takeEvery } from "@redux-saga/core/effects";
 import { authSelectors } from "../auth/selectors";
-import { getPlaylists, getPlaylistsSuccess, addPlaylist } from "./slice";
+import { getPlaylists, getPlaylistsSuccess, addPlaylist, getPlaylistTracks, getPlaylistTracksSuccess } from "./slice";
 
 function* getPlaylistsSaga() {
     try {
@@ -50,9 +50,34 @@ function* addPlaylistSaga ({ values } : {values :any}) {
     }
 }
 
+function* getPlaylistTracksSaga ({ values } : {values :any}) {
+  try{
+    console.log(values)
+    const accessToken: string = yield select(authSelectors.getAccessToken);
+    const playlistId = values.playlistId;
+    
+    const request = () => 
+      axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+    
+    const { data } = yield call(request);
+    yield put(getPlaylistTracksSuccess({ tracks : data }));
+
+  }catch(error){
+    return null;
+  }
+
+}
+
   export default function* playlistSaga() {
     yield takeEvery(getPlaylists.type, getPlaylistsSaga);
   }
   export function* CreatePlaylistSaga() {
     yield takeEvery(addPlaylist, addPlaylistSaga);
+  }
+
+  export function* GetPlaylistTracksSaga() {
+    yield takeEvery(getPlaylistTracks, getPlaylistTracksSaga);
   }

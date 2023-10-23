@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { openPopup } from "./popupSlice";
 import { useState } from "react";
-import { addPlaylist } from "./slice";
 
 const PopUpAddPlaylist = () => {
 
@@ -13,7 +12,6 @@ const PopUpAddPlaylist = () => {
         //Check for Name and description
         if(name !==""){
             console.log(name + " desc : " + description)
-            dispatch(addPlaylist({name,description}))
             setName("");
             setDescription("");
             dispatch(openPopup(false));

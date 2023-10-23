@@ -8,6 +8,7 @@ import logo from "./logo.svg";
 import Playlist from "./containers/playlist/Playlist";
 import PopUpButton from "./containers/playlist/PopUpButton";
 import { getPlaylists } from "./containers/playlist/slice";
+import SearchBar from "./containers/search/SearchBar";
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const App: FC = (): ReactElement => {
   return (
     <div className="App">
       <header className="App-header">
-        
+        <SearchBar/>
         <PopUpButton/>
         <Playlist/>
       </header>

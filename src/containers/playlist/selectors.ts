@@ -5,5 +5,6 @@ import { RootState } from "../../store/store";
 const selectSelf = (state: RootState) => state.playlists;
 
 export const playlistsSelectors = {
-  getPlaylists: createSelector(selectSelf, (playlists) => playlists.items)
+  getPlaylists: createSelector(selectSelf, (playlists) => playlists.items),
+  getPlaylist: createSelector(selectSelf, (playlist) => playlist.selectedPlaylist)
 };
