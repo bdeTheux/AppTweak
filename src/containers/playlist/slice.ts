@@ -7,6 +7,7 @@ export interface Playlist {
 }
 
 export interface Track {
+  album: any;
   name: string,
   albumName: string,
   artist: string,
@@ -33,15 +34,16 @@ const initialState: ListPlaylists = {
 //Create actions
 export const getPlaylists = createAction("playlists/getPlaylists");
 export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPlaylistsSuccess");
-export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylistSuccess");
+export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylist");
 export const getPlaylistTracksSuccess = createAction<Playlist>("playlists/getPlaylistTracksSuccess");
 
 export const addPlaylist = (values: Playlist) => ({
     type: "playlists/addPlaylistSuccess",
     values: values,
-  });
+});
+// Post prob =
 export const getPlaylistTracks = (values: any) => ({
-  type: "playlists/getPlaylistTracks",
+  type: values.type,//"playlists/getPlaylistTracks",
   values: values,
 })
 

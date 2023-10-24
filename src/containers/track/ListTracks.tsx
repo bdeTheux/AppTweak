@@ -12,6 +12,9 @@ const ListTracks = (props: any) => {
             className="demo-loadmore-list"
             style={{width: '100vh'}}
             dataSource={tracks}
+            locale={{
+                emptyText: 'No track',
+            }}
             renderItem={(item: any) => (
                 <List.Item>
                     <List.Item.Meta

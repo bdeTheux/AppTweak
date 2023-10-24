@@ -5,11 +5,11 @@ import { isPopupOpen, openPopup } from "./popupSlice";
 
 const PopUpButton = () => {
 
-    const dispach = useDispatch();
+    const dispatch = useDispatch();
     
     return (
         <div>
-            <button onClick={() => dispach(openPopup(true))}>Add new playlist</button>
+            <button onClick={() => dispatch(openPopup(true))}>Add new playlist</button>
             {useSelector(isPopupOpen) ? <PopUpAddPlaylist />: null}
             
         </div>
