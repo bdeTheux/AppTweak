@@ -36,6 +36,7 @@ export const getPlaylists = createAction("playlists/getPlaylists");
 export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPlaylistsSuccess");
 export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylist");
 export const getPlaylistTracksSuccess = createAction<Playlist>("playlists/getPlaylistTracksSuccess");
+export const addPlaylistTracksSuccess = createAction<Playlist>("playlists/addPlaylistTracksSuccess");
 
 export const addPlaylist = (values: Playlist) => ({
     type: "playlists/addPlaylistSuccess",
@@ -44,6 +45,11 @@ export const addPlaylist = (values: Playlist) => ({
 // Post prob =
 export const getPlaylistTracks = (values: any) => ({
   type: values.type,//"playlists/getPlaylistTracks",
+  values: values,
+})
+
+export const addPlaylistTracks = (values: any) => ({
+  type: "playlists/addPlaylistTracks",
   values: values,
 })
 
@@ -87,9 +93,9 @@ const playlistsSlice = createSlice({
               }
               console.log(action.payload.playlistId + "action")
               let playlist: Playlist = {
+                id: playlistId|| "",
                 tracks: action.payload.tracks.items.map((i: { track: Track; }) => i.track)
               }
-              console.log(" ---------------------------------------")
               state.selectedPlaylist = playlist
               if(state.selectedPlaylist.tracks !== undefined){
                 console.log(state.selectedPlaylist.tracks[0] + " SELECTED");

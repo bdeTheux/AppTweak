@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { openPopup } from "./popupSlice";
 import { useState } from "react";
-import { addPlaylist } from "./slice";
+import { addPlaylist } from "../playlist/slice";
 
 const PopUpAddPlaylist = () => {
 

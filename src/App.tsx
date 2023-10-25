@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
 import Playlist from "./containers/playlist/Playlist";
-import PopUpButton from "./containers/playlist/PopUpButton";
+import PopUpButton from "./containers/popup/PopUpButton";
 import { getPlaylists } from "./containers/playlist/slice";
 import SearchBar from "./containers/search/SearchBar";
 

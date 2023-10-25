@@ -2,12 +2,16 @@ import { AutoComplete, Avatar, Button, Input, List, Space } from "antd"
 import { useDispatch, useSelector } from "react-redux";
 import { getTracks } from "./searchSlice";
 import { searchSelectors } from "./selectors";
-import { Track } from "../playlist/slice";
+import { Track, addPlaylistTracks } from "../playlist/slice";
 import { PlusOutlined } from '@ant-design/icons';
 
 const SearchBar = () => {
     const dispatch = useDispatch();
     const items = useSelector(searchSelectors.getSearchTracks)
+
+    const addTrack = (track: any) => {
+        dispatch(addPlaylistTracks(track))
+    }
 
     const itemsDisplay = () => {
         if (items.length === 0) return [];
@@ -27,7 +31,7 @@ const SearchBar = () => {
                                 title={item.name}
                                 style={{}}
                             />
-                            <Button type="primary" icon={<PlusOutlined />} size={'small'} />
+                            <Button type="primary"onClick={() => addTrack(item)} icon={<PlusOutlined />} size={'small'} />
                         </List.Item>
                     </div>
                 ),
