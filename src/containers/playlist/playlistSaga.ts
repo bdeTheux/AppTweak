@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { call, put, select, takeEvery } from "@redux-saga/core/effects";
 import { authSelectors } from "../auth/selectors";
-import { getPlaylists, getPlaylistsSuccess, addPlaylist, getPlaylistTracks, getPlaylistTracksSuccess, addPlaylistTracks, addPlaylistTracksSuccess, Playlist } from "./slice";
+import { getPlaylists, getPlaylistsSuccess, addPlaylist, getPlaylistTracks, getPlaylistTracksSuccess, addPlaylistTracks, addPlaylistTracksSuccess, Playlist, removePlaylistTracks } from "./slice";
 import { playlistsSelectors } from "./selectors";
 
 function* getPlaylistsSaga() {
@@ -99,6 +99,29 @@ function* addPlaylistTracksSaga ({ values } : {values :any}) {
 
 }
 
+function* removePlaylistTracksSaga ({ values } : {values :any}) {
+  try{
+    const accessToken: string = yield select(authSelectors.getAccessToken);
+    const playlist: Playlist = yield select(playlistsSelectors.getPlaylist);
+    const playlistId = playlist.id;
+    console.log(values.uri);
+    
+    
+    const request = () => 
+      axios.delete(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,{ 
+        headers: { Authorization: `Bearer ${accessToken}` }, 
+        data: {tracks : [{uri:values.uri}]}
+      })
+    
+    const { data } = yield call(request);
+    yield put(addPlaylistTracksSuccess({ tracks : data }));
+
+  }catch(error){
+    return null;
+  }
+
+}
+
   export default function* playlistSaga() {
     yield takeEvery(getPlaylists.type, getPlaylistsSaga);
   }
@@ -112,4 +135,8 @@ function* addPlaylistTracksSaga ({ values } : {values :any}) {
   
   export function* AddPlaylistTracksSaga() {
     yield takeEvery(addPlaylistTracks, addPlaylistTracksSaga);
+  }
+  
+  export function* RemovePlaylistTracksSaga() {
+    yield takeEvery(removePlaylistTracks, removePlaylistTracksSaga);
   }

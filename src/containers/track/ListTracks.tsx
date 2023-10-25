@@ -1,10 +1,18 @@
-import { Avatar, Button, List, Skeleton } from 'antd';
-import { useSelector } from "react-redux";
+import { Avatar, Button, List } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
 import { playlistsSelectors } from "../playlist/selectors";
+import { removePlaylistTracks } from '../playlist/slice';
+import { DeleteOutlined } from '@ant-design/icons';
 
 const ListTracks = (props: any) => {
     const playlistSelected = useSelector(playlistsSelectors.getPlaylist)
-    const tracks = playlistSelected.tracks;
+    let tracks = playlistSelected.tracks;
+    const dispatch = useDispatch();
+
+    const removeTrack = (track: any) => {        
+        dispatch(removePlaylistTracks(track))
+    }
+
 
     
     const listTrack = (
@@ -24,6 +32,8 @@ const ListTracks = (props: any) => {
                     />
                     <div style={{display: 'center'}}>{item.album.name}</div>
                     <div>{item.album.release_date}</div>
+                    <Button type="primary"onClick={() => {removeTrack(item)}} icon={<DeleteOutlined />} size={'small'} />
+                    
                 </List.Item>
             )}
         />

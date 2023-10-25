@@ -12,7 +12,8 @@ export interface Track {
   albumName: string,
   artist: string,
   cover: string,
-  releaseDate: string
+  releaseDate: string,
+  uri: string
 }
 
 export interface ListPlaylists {
@@ -37,6 +38,7 @@ export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPla
 export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylist");
 export const getPlaylistTracksSuccess = createAction<Playlist>("playlists/getPlaylistTracksSuccess");
 export const addPlaylistTracksSuccess = createAction<Playlist>("playlists/addPlaylistTracksSuccess");
+export const removePlaylistTracksSuccess = createAction<Playlist>("playlists/removePlaylistTracksSuccess");
 
 export const addPlaylist = (values: Playlist) => ({
     type: "playlists/addPlaylistSuccess",
@@ -50,6 +52,11 @@ export const getPlaylistTracks = (values: any) => ({
 
 export const addPlaylistTracks = (values: any) => ({
   type: "playlists/addPlaylistTracks",
+  values: values,
+})
+
+export const removePlaylistTracks = (values: any) => ({
+  type: "playlists/removePlaylistTracks",
   values: values,
 })
 
