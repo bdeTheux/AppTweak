@@ -4,13 +4,17 @@ import { getTracks } from "./searchSlice";
 import { searchSelectors } from "./selectors";
 import { Track, addPlaylistTracks } from "../playlist/slice";
 import { PlusOutlined } from '@ant-design/icons';
+import { playlistsSelectors } from "../playlist/selectors";
 
 const SearchBar = () => {
     const dispatch = useDispatch();
     const items = useSelector(searchSelectors.getSearchTracks)
+    let currentPlaylist = useSelector(playlistsSelectors.getPlaylist);
 
     const addTrack = (track: any) => {
-        dispatch(addPlaylistTracks(track))
+        if(Object.keys(currentPlaylist).length !== 0){            
+            dispatch(addPlaylistTracks(track))
+        }
     }
 
     const itemsDisplay = () => {

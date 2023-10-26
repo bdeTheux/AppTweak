@@ -35,30 +35,23 @@ const initialState: ListPlaylists = {
 //Create actions
 export const getPlaylists = createAction("playlists/getPlaylists");
 export const getPlaylistsSuccess = createAction<PlaylistState>("playlists/getPlaylistsSuccess");
-export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylist");
+export const getPlaylistsFail = createAction<any>("playlists/getPlaylistsFail");
+
+export const addPlaylist = createAction<any>("playlists/addPlaylist");
+export const addPlaylistSuccess = createAction<Playlist>("playlists/addPlaylistSuccess");
+export const addPlaylistFail = createAction<any>("playlists/addPlaylistFail");
+
+export const getPlaylistTracks = createAction<Playlist>("playlists/getPlaylistTracks");
 export const getPlaylistTracksSuccess = createAction<Playlist>("playlists/getPlaylistTracksSuccess");
+export const getPlaylistTracksFail = createAction<any>("playlists/getPlaylistTracksFail");
+
+export const addPlaylistTracks = createAction("playlists/addPlaylistTracks");
 export const addPlaylistTracksSuccess = createAction<Playlist>("playlists/addPlaylistTracksSuccess");
+export const addPlaylistTracksFail = createAction<any>("playlists/addPlaylistTracksFail");
+
+export const removePlaylistTracks = createAction("playlists/removePlaylistTracks");
 export const removePlaylistTracksSuccess = createAction<Playlist>("playlists/removePlaylistTracksSuccess");
-
-export const addPlaylist = (values: Playlist) => ({
-    type: "playlists/addPlaylistSuccess",
-    values: values,
-});
-// Post prob =
-export const getPlaylistTracks = (values: any) => ({
-  type: values.type,//"playlists/getPlaylistTracks",
-  values: values,
-})
-
-export const addPlaylistTracks = (values: any) => ({
-  type: "playlists/addPlaylistTracks",
-  values: values,
-})
-
-export const removePlaylistTracks = (values: any) => ({
-  type: "playlists/removePlaylistTracks",
-  values: values,
-})
+export const removePlaylistTracksFail = createAction<any>("playlists/removePlaylistTracksFail");
 
 const playlistsSlice = createSlice({
     name:"playlists",
@@ -69,7 +62,7 @@ const playlistsSlice = createSlice({
       },
       setPlaylist: (state, action) => {
         state.selectedPlaylist = action.payload;
-      }
+      },
     },
     extraReducers(builder) {
         builder

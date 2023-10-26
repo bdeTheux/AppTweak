@@ -3,7 +3,6 @@
 import PlaylistSet from "./PlaylistSet";
 
 const Playlist = () => {
-    
     return (
         <>
             <p>My playlist</p>

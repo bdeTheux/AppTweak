@@ -6,6 +6,6 @@ import GetTracksSaga from "../containers/search/searchSaga";
 
 export default function* rootSaga() {
   
-  yield all([authSaga(), playlistSaga(), CreatePlaylistSaga(), GetPlaylistTracksSaga(),GetTracksSaga(), AddPlaylistTracksSaga(), RemovePlaylistTracksSaga()]);
+  yield all([authSaga(), playlistSaga(),CreatePlaylistSaga(), GetPlaylistTracksSaga(),GetTracksSaga(),AddPlaylistTracksSaga(),RemovePlaylistTracksSaga()]);
   
 }

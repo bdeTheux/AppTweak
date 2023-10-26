@@ -38,7 +38,6 @@ const ListTracks = (props: any) => {
             )}
         />
     )
-    console.log(props.haveTrack);
     
     return (
         //<></>
