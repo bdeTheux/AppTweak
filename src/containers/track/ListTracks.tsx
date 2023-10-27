@@ -46,16 +46,9 @@ const ListTracks = (props: any) => {
     )
     
     return (
-        //<></>
         <div className="tracks">
-    
-        {tracks?.length !== 0 ? listTrack: <h3>No Playlists</h3>}
-        
-    
-        </div>
-        /*tracks.map(track: any => {
-
-        })*/
+            {tracks?.length !== 0 ? listTrack: <h3>No Tracks in this playlist</h3>}
+        </div>        
     )
 
 }
