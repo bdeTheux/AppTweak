@@ -10,7 +10,7 @@ const SearchBar = () => {
     const dispatch = useDispatch();
     const items = useSelector(searchSelectors.getSearchTracks)
     let currentPlaylist = useSelector(playlistsSelectors.getPlaylist);
-
+    
     const addTrack = (track: any) => {
         if(Object.keys(currentPlaylist).length !== 0){            
             dispatch(addPlaylistTracks(track))
@@ -49,17 +49,19 @@ const SearchBar = () => {
     }
 
     return (
-        <Space direction="vertical">
-            <AutoComplete
-                style={{ width: '100vh' }}
-                options={itemsDisplay()}
-                onSelect={() => {}}
-                onSearch={(e) => onSearch(e)}
-                size="large"
-            >
-                <Input.Search size="large" placeholder="Search for a track" enterButton />
-            </AutoComplete>
-        </Space>
+        <div className="searchBar">
+            <Space direction="vertical">
+                <AutoComplete
+                    style={{ width: '70vh'}}
+                    options={itemsDisplay()}
+                    onSelect={() => {}}
+                    onSearch={(e) => onSearch(e)}
+                    
+                >
+                    <Input.Search size="large" placeholder="Search for a track" enterButton />
+                </AutoComplete>
+            </Space>
+        </div>
     )
 }
 

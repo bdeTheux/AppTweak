@@ -5,15 +5,20 @@ import { Dropdown, Space } from 'antd';
 import { useEffect, useState } from "react";
 import { Playlist, getPlaylistTracks, getPlaylists } from "./slice";
 import ListTracks from "../track/ListTracks";
+import { authSelectors } from "../auth/selectors";
 
 const PlaylistSet = () => {
     const dispatch = useDispatch();
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist>();
     const playlistList = useSelector(playlistsSelectors.getPlaylists)
+    const user = useSelector(authSelectors.getUser);
     
-    if (playlistList.length <= 0) {
-        dispatch(getPlaylists())
-    }
+    useEffect(() => {
+        if (user && playlistList.length <= 0) {
+            dispatch(getPlaylists())
+        }
+    }, [user]);
+
     const playlists = useSelector(playlistsSelectors.getPlaylists);
     const items = playlists.map(item => ({
         key: "" + item.id,
@@ -26,16 +31,21 @@ const PlaylistSet = () => {
     }
    
     return (
-        <div>
-            <Dropdown menu={{items}} trigger={['click']}>
-                <a>
-                    <Space>
-                        {selectedPlaylist ? selectedPlaylist.name : "Choose a playlist"}
-                        <DownOutlined />
-                    </Space>
-                </a>
-            </Dropdown>
-            <p>{selectedPlaylist ? selectedPlaylist.description : " "}</p>
+        <div className="playlistSet">
+            <div id="dropDown-container">
+                <div id="dropDown">
+                    <Dropdown menu={{items}} trigger={['click']}>
+                        <a>
+                            <Space style={{color:"#110e1b"}}>
+                                {selectedPlaylist ? selectedPlaylist.name : "Choose a playlist"}
+                                <DownOutlined />
+                            </Space>
+                        </a>
+                    </Dropdown>
+                </div>
+
+                <p>{selectedPlaylist ? selectedPlaylist.description : " "}</p>
+            </div>
             <ListTracks 
                 playlistId={selectedPlaylist?.id}
                 /*tracks={useSelector(playlistsSelectors.getPlaylists).filter(p => p.id === selectedPlaylist?.id)[0]?.tracks !== undefined 

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background: linear-gradient(#066839, #0f5132, #1d2e28 , #212224);/*(#066839, #0f5132, #1d2e28 , #212224) (#065a60, #144552, #272640 , #312244) , (#a6b98b, #849669, #728359 , #606f49)*/
+    min-height: 100vh;
 }
 
 .App-logo {
@@ -14,14 +16,17 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: 25vh;
+  display: inline-flex;
+  align-items: flex-start;
   font-size: calc(10px + 2vmin);
   color: white;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  justify-content: space-between;
+  width: -webkit-fill-available;
+  min-width: 100%;
+  /* justify-content: space-between; */
 }
 
 .App-link {
@@ -35,4 +40,56 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.searchBar {
+  margin-top: 8vh;
+  margin-left: 10vh;
+}
+
+.popUpButton {
+  margin-top: 10vh;
+  margin-right: 20vh;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.playlistSet {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#dropDown-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#dropDown {
+  margin-left: 10vh;
+  margin-right: 10vh;
+  color: grey
+}
+
+.tracks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10vh;
+  width: -webkit-fill-available;
+}
+
+#track {
+  display: flex;
+  justify-items: start;
+  align-items: center;
+  width: 120%;
+  height: 16.5vh;
+  max-width: 100%;
+  justify-content: space-between;
 }

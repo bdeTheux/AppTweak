@@ -9,6 +9,7 @@ import PopUpButton from "./containers/popup/PopUpButton";
 import { getPlaylists } from "./containers/playlist/slice";
 import SearchBar from "./containers/search/SearchBar";
 import { playlistsSelectors } from "./containers/playlist/selectors";
+import PlaylistSet from "./containers/playlist/PlaylistSet";
 
 const App: FC = (): ReactElement => {
 
@@ -22,8 +23,8 @@ const App: FC = (): ReactElement => {
       <header className="App-header">
         <SearchBar/>
         <PopUpButton/>
-        <Playlist/>
       </header>
+      <PlaylistSet/>
     </div>
   );
 };

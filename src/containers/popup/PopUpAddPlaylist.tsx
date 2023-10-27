@@ -2,6 +2,10 @@ import { useDispatch } from "react-redux";
 import { openPopup } from "./popupSlice";
 import { useState } from "react";
 import { addPlaylist } from "../playlist/slice";
+import "./popup.css"
+import { Button, Modal } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+
 
 const PopUpAddPlaylist = () => {
 
@@ -20,15 +24,28 @@ const PopUpAddPlaylist = () => {
     }
     
     return (
-        <div>
-            <h2>Add new playlist</h2>
-            <form>
-                <input name="playlistName" type="text" placeholder="Playlist name" value={name} onChange={(e) => setName(e.target.value)} required></input>
-                <textarea name="description" rows={3} placeholder="Playlist description (optional)" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-                <button onClick={() => dispatch(openPopup(false))}>Cancel</button>
-                <button type="button" onClick={onAddPlaylist}>Create</button>
-            </form>
-        </div>
+        <section className="popup">
+            <Modal
+            open={true}
+            title=""
+            onOk={onAddPlaylist}
+            onCancel={() => dispatch(openPopup(false))}
+            okText="Create"
+            footer={(_, { OkBtn, CancelBtn }) => (
+                <>
+                    <CancelBtn />
+                    <OkBtn />
+                </>
+            )}
+      >
+        <h2>Add new playlist</h2>
+        <form className="addPlaylistForm">
+            <input className="playlistName" name="playlistName" type="text" placeholder="Playlist name" value={name} onChange={(e) => setName(e.target.value)} required></input>
+            <textarea className="playlistDescription" name="description" rows={3} placeholder="Playlist description (optional)" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+        </form>
+      </Modal>
+
+        </section>
     );
 }
 

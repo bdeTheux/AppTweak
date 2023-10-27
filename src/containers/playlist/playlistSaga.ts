@@ -1,7 +1,7 @@
 import { User } from "../auth/slice";
 import axios from "axios";
 
-import { call, put, select, takeLatest, takeEvery } from "@redux-saga/core/effects";
+import { call, put, select, takeLatest, takeEvery, takeLeading } from "@redux-saga/core/effects";
 
 import { authSelectors } from "../auth/selectors";
 import { 
@@ -20,11 +20,9 @@ import {
   Playlist,
   removePlaylistTracks } from "./slice";
 import { playlistsSelectors } from "./selectors";
-
 function* getPlaylistsSaga() {
     try {
       const accessToken: string = yield select(authSelectors.getAccessToken);
-      
       const user: User = yield select(authSelectors.getUser);
       const userId = user.userId;
       
