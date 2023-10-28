@@ -18,7 +18,9 @@ import {
   addPlaylistTracksSuccess,
   addPlaylistTracksFail,
   Playlist,
-  removePlaylistTracks } from "./slice";
+  removePlaylistTracks, 
+  removePlaylistTracksSuccess,
+  removePlaylistTracksFail} from "./slice";
 import { playlistsSelectors } from "./selectors";
 function* getPlaylistsSaga() {
     try {
@@ -26,6 +28,7 @@ function* getPlaylistsSaga() {
       const user: User = yield select(authSelectors.getUser);
       const userId = user.userId;
       
+      //https://api.spotify.com/v1/me/playlists
       const request = () =>
         axios.get<any>(`https://api.spotify.com/v1/users/${userId}/playlists`, {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -127,10 +130,10 @@ function* removePlaylistTracksSaga (values : any) {
       })
     
     const { data } = yield call(request);
-    yield put(addPlaylistTracksSuccess({ tracks : data }));
+    yield put(removePlaylistTracksSuccess({ tracks : data }));
 
   }catch(error: any){
-    yield put(addPlaylistTracksFail({ message: error.message }));
+    yield put(removePlaylistTracksFail({ message: error.message }));
   }
 }
 

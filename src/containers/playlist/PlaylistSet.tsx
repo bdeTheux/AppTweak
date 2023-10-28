@@ -33,7 +33,7 @@ const PlaylistSet = () => {
     return (
         <div className="playlistSet">
             <div id="dropDown-container">
-                <div id="dropDown">
+                <h1 id="dropDown">
                     <Dropdown menu={{items}} trigger={['click']}>
                         <a>
                             <Space style={{color:"#110e1b"}}>
@@ -42,7 +42,7 @@ const PlaylistSet = () => {
                             </Space>
                         </a>
                     </Dropdown>
-                </div>
+                </h1>
 
                 <p>{selectedPlaylist ? selectedPlaylist.description : " "}</p>
             </div>

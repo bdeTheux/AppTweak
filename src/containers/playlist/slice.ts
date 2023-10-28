@@ -1,19 +1,23 @@
 import { configureStore, createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { playlistsSelectors } from "./selectors";
+import { useSelector } from "react-redux";
 export interface Playlist {
     id? : string;
     name?: string;
     description?: string;
     tracks? : Track[];
+    snapshot_id?: string
 }
 
 export interface Track {
+  id: string;
   album: any;
-  name: string,
-  albumName: string,
-  artist: string,
-  cover: string,
-  releaseDate: string,
-  uri: string
+  name: string;
+  albumName: string;
+  artist: string;
+  cover: string;
+  releaseDate: string;
+  uri: string;
 }
 
 export interface ListPlaylists {
@@ -71,11 +75,13 @@ const playlistsSlice = createSlice({
             })
             .addCase(addPlaylistSuccess, (state, action: any) => {
                 console.log(action)
+                
                 const newPlaylist: Playlist = {
-                    name: action.values.name,
-                    description: action.values.description,
-                    id: action.values.id,
-                    tracks: []
+                    name: action.payload.tracks.name,//action.values.name,
+                    description: action.payload.tracks.description,
+                    id: action.payload.tracks.id,
+                    tracks: [],
+                    snapshot_id: action.payload.tracks.snapshot_id
                 };
                 state.items = [...state.items, newPlaylist]
             })
@@ -107,7 +113,13 @@ const playlistsSlice = createSlice({
               //state.items[2].tracks = action.payload.tracks.items.map((i: { track: Track; }) => i.track)
               state.items.filter(i => i.id === playlistId)[0].tracks = action.payload.tracks.items.map((i: { track: Track; }) => i.track);
               
-            })      
+            }).addCase(addPlaylistTracksSuccess, (state, action: any) => { 
+              state.selectedPlaylist.snapshot_id = action.payload.tracks.snapshot_id
+            })
+            .addCase(removePlaylistTracksSuccess, (state, action: any) => { 
+              state.selectedPlaylist.snapshot_id = action.payload.tracks.snapshot_id
+            })
+
     },
   })
 
